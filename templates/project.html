@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+<main>
+    <article class="article">
+        <header class="article__header">
+            <div class="container">
+                <h1 class="article__heading heading heading--size-large">Projects</h1>
+                <!-- Filter projects-->
+                <div class="article__filter filter">
+                    <button class="filter__item filter__item--active __js_filter-btn" type="button" data-filter="*">all</button>
+                    <button class="filter__item __js_filter-btn" type="button" data-filter=".__js_interior">interior</button>
+                    <button class="filter__item __js_filter-btn" type="button" data-filter=".__js_architecture">architecture</button>
+                    <button class="filter__item __js_filter-btn" type="button" data-filter=".__js_building">building</button>
+                    <button class="filter__item __js_filter-btn" type="button" data-filter=".__js_exterior">exterior</button>
+                </div>
+            </div>
+        </header>
+        <div class="article__main container">
+            <ul class="projects-masonry row __js_projects-grid">
+                {% for project in projects %}
+                <li class="projects-masonry__item col-12 col-md-6 col-xl-4 __js_masonry-item __js_{{ project.category }}">
+                    <a class="card card--small card--masonry" href="{% url 'project_detail' project.slug %}">
+                        <div class="card__image">
+                            <img src="{{ project.images.first.image.url }}" alt="{{ project.title }}">
+                        </div>
+                        <div class="card__content">
+                            <h3 class="card__heading">{{ project.title|linebreaksbr }}</h3>
+                            <div class="card__text">{{ project.description|truncatewords:30 }}</div>
+                            <div class="card__bottom">
+                                <span class="card__link">See project
+                                    <svg width="20" height="20">
+                                        <use xlink:href="#chevron-right"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </article>
+    
+</main>
+{% endblock main %}

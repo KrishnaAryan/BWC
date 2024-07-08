@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block main %}
+
+<style>
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.package {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.package:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.package.blue {
+    background-color: #007BFF;
+}
+
+.package.green {
+    background-color: #28a745;
+}
+
+.package.red {
+    background-color: #dc3545;
+}
+
+.package.yellow {
+    background-color: #ffc107;
+}
+
+.package .content {
+    flex-grow: 1;
+}
+
+.package h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #fff; /* Text color for better readability */
+}
+
+.package p {
+    font-size: 16px;
+    color: #fff; /* Text color for better readability */
+}
+
+.package .view-more-link {
+    background-color: transparent;
+    color: #007BFF; /* Default link text color */
+    border: 2px solid #007BFF; /* Default link border color */
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    text-decoration: none; /* Remove default underline */
+    display: inline-block; /* Ensure it behaves like a block element */
+}
+
+.package .view-more-link:hover {
+    background-color: #007BFF;
+    color: #fff;
+    border-color: #007BFF;
+}
+</style>
+
+<div class="container">
+    {% for package_item in packages %}
+    <div class="package {{ package_item.color_code }}">
+        <div class="content">
+            <h2>{{ package_item.name }}</h2>
+            <h2>Price: ${{ package_item.price }}</h2>
+            <h2>Offer Price: ${{ package_item.offer_price }}</h2>
+            <p>
+                {% for summary in package_item.package_summaries.all %}
+                    <ul><li style="color:black">{{ summary.summary }}</li></ul>
+                {% endfor %}
+            </p>
+        </div>
+        <a href="#" class="view-more-link">View More</a>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock main %}

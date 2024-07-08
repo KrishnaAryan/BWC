@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+<main>
+    <article class="article">
+      <header class="article__header">
+        <div class="container">
+          <h1 class="article__heading heading heading--size-large">{{project.title}}</h1>
+          <div class="article__header-text">“{{project.category}}”</div>
+        </div>
+      </header>
+      <div class="article__projects-slider projects-slider swiper-container __js_projects-slider">
+        <style>
+            .swiper-container {
+                width: 100%; /* Adjust width as needed */
+                height: 768px; /* Adjust height as needed */
+                margin-left: auto;
+                margin-right: auto;
+              }
+              
+              .swiper-slide {
+                text-align: center; /* Center contents within each slide */
+              }
+              
+              .swiper-slide img {
+                display: block; /* Ensure images are block-level elements */
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 100%;
+                height: auto;
+              }
+              
+        </style>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+              {% for image in project.images.all %}
+                <div class="swiper-slide">
+                  <img src="{{ image.image.url }}" alt="{{ project.title }} Image" width="1111" height="768">
+                </div>
+              {% endfor %}
+            </div>
+            
+          </div>
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              var swiper = new Swiper('.swiper-container', {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                loop: true,
+                centeredSlides: true, // Center the slides
+                autoplay: {
+                  delay: 2000, // Auto slide delay in milliseconds
+                  disableOnInteraction: false, // Enable autoplay even when user interacts with swiper
+                },
+                pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
+                },
+              });
+            });
+          </script>
+        <div class="projects-slider__navigation">
+          <button class="projects-slider__next" type="button" aria-label="next">
+            <svg width="64" height="64">
+              <use xlink:href="#chevron-right"></use>
+            </svg>
+          </button>
+          <button class="projects-slider__prev" type="button" aria-label="prev">
+            <svg width="64" height="64">
+              <use xlink:href="#chevron-left"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="article__main container">
+        <ul class="article__project-meta project-meta" data-aos="fade">
+          <li class="project-meta__item">
+            <div class="project-meta__item-title">Client</div>
+            <div class="project-meta__item-text">{{project.client_name}}</div>
+          </li>
+          <li class="project-meta__item">
+            <div class="project-meta__item-title">Completion</div>
+            <div class="project-meta__item-text">{{project.completion}}</div>
+          </li>
+          <li class="project-meta__item">
+            <div class="project-meta__item-title">Project type</div>
+            <div class="project-meta__item-text">{{project.project_type}}</div>
+          </li>
+          <li class="project-meta__item">
+            <div class="project-meta__item-title">Manager</div>
+            <div class="project-meta__item-text">{{project.manager}}</div>
+          </li>
+        </ul>
+        <div class="article__project-designer project-designer row">
+          {% comment %} <div class="project-designer__image col-12 col-md-6 col-lg-4 order-md-1" data-aos="fade">
+            <img src="{% static 'img/picture/projects/detail/designer.jpg' %}" srcset="{% static 'img/picture/projects/detail/designer@2x.jpg' %} 2x" width="350" height="532" alt="Samuel">
+          </div> {% endcomment %}
+          <div class="project-designer__content col-12 col-md-6 col-lg-8">
+            {% comment %} <div class="project-designer__title" data-aos="fade">
+              <b>Samuel</b> / Designer
+            </div> {% endcomment %}
+            <div class="project-designer__text">
+              <p data-aos="fade">“{{project.description}}”</p>
+              
+            </div>
+          </div>
+        </div>
+        <div class="process">
+          <h2 class="process__heading heading" data-aos="fade">Process:</h2>
+          <img src="{% static 'img/picture/projects/detail/sketch.jpg' %}" srcset="{% static 'img/picture/projects/detail/sketch@2x.jpg' %} 2x" width="1111" height="768" alt="" data-aos="fade">
+          <ul class="process__steps steps">
+            <li class="steps__item" data-aos="fade">
+              <div class="steps__item-title">Come up with a solution</div>
+              <div class="steps__item-text">“Totally focused on tools to enhance and help your content shine. We have created this theme thinking only in options helpfully for the daily needs in a creative environment like an agency,”</div>
+            </li>
+            <li class="steps__item" data-aos="fade">
+              <div class="steps__item-title">Planing</div>
+              <div class="steps__item-text">“Totally focused on tools to enhance and help your content shine. We have created this theme thinking only in options helpfully for the daily needs in a creative environment like an agency,”</div>
+            </li>
+            <li class="steps__item" data-aos="fade">
+              <div class="steps__item-title">Design</div>
+              <div class="steps__item-text">“Totally focused on tools to enhance and help your content shine. We have created this theme thinking only in options helpfully for the daily needs in a creative environment like an agency,”</div>
+            </li>
+            <li class="steps__item" data-aos="fade">
+                <div class="steps__item-title">Execution</div>
+                <div class="steps__item-text">“Totally focused on tools to enhance and help your content shine. We have created this theme thinking only in options helpfully for the daily needs in a creative environment like an agency,”</div>
+              </li>
+          </ul>
+          {% comment %} <img src="{% static 'img/picture/projects/detail/result.jpg' %}" srcset="{% static 'img/picture/projects/detail/result@2x.jpg' %} 2x" width="1111" height="768" alt="" data-aos="fade">
+          <div class="process__text" data-aos="fade">Totally focused on tools to enhance and help your content shine. We have created this theme thinking only in options helpfully for the daily needs in a creative environment like an agency, a small studio.</div> {% endcomment %}
+        </div>
+      </div>
+    </article>
+    
+  </main>
+{% endblock main %}
