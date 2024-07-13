@@ -11,7 +11,7 @@ sitemaps = {
     'static': StaticViewSitemap,
     'blog': BlogPostSitemap,
     'jobs': JobDetailSitemap,
-    'dynamicurl': DynamicUrlSitemap
+    'dynamicurl': DynamicUrlSitemap,
 }
 
 def robots_txt(request):
@@ -35,6 +35,9 @@ urlpatterns = [
     path('package', views.package, name='package'),
     path('robots.txt', robots_txt, name='robots_txt'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('package/<str:slug>', views.packagedownload, name='packagedownload'),
+    path('privacy-policy/', views.privacy_policy, name='privacy-policy'),
+    path('terms-and-conditions', views.termsconditions, name='terms-and-conditions'),
     path('<str:path>', dynamic_view, name='dynamic_view'),
 ]
 

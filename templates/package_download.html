@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block main %}
+<div class="container">
+    <h1 class="article__heading heading heading--size-large">{{ packages.name }} Package</h1>
+</div>
+</header><br><br><br><br>
+<style>
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    color: green;
+}
+
+.package {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.package:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.package .content {
+    flex-grow: 1;
+}
+
+.package h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.package p {
+    font-size: 16px;
+    color: black;
+}
+
+.package .view-more-link {
+    background-color: transparent;
+    color: #007BFF;
+    border: 2px solid #007BFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.package .view-more-link:hover {
+    background-color: #007BFF;
+    color: #fff;
+    border-color: #007BFF;
+}
+
+/* Popup form styles */
+.popup-form {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
+    text-align: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+</style>
+
+<div class="container">
+    <div class="package">
+        <div class="content">
+            <h2>{{ packages.name }}</h2>
+            <p>Price: <s>₹ {{ packages.price }}</s> / Sqft</p>
+            <p>Offer Price: ₹ {{ packages.offer_price }} / Sqft</p> <br><br><br>
+            <ul></p> <br><br><br>
+                {% for summary in packages.package_summaries.all %}
+                    <li style="color:black; text-align:left;">{{ summary.summary }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <button class="view-more-link" onclick="togglePopup('{{ packages.package_documents.url }}')">Download Now</button>
+    </div>
+</div>
+
+<div class="popup-form" id="popupForm">
+    <div class="popup-content">
+        <span class="close-btn" onclick="togglePopup()">&times;</span>
+        <h2>Download {{ packages.name }}</h2>
+        <form id="downloadForm" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function togglePopup(packageUrl) {
+    var popup = document.getElementById("popupForm");
+    popup.style.display = (popup.style.display === "none" || popup.style.display === "") ? "flex" : "none";
+    if (packageUrl) {
+        document.getElementById("downloadForm").onsubmit = function(event) {
+            event.preventDefault();
+            var form = event.target;
+            var formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                var url = window.URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = '{{ packages.package_documents.name }}';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+                togglePopup();
+            })
+            .catch(error => console.error('Error:', error));
+        };
+    }
+}
+</script>
+
+{% endblock main %}

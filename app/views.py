@@ -27,9 +27,26 @@ def project_list(request):
     projects = ProjectPage.objects.all()
     return render(request, 'project.html', {'projects': projects})
 
+
 def project_detail(request, slug):
     project = get_object_or_404(ProjectPage, slug=slug)
-    return render(request, 'project_detail.html', {'project': project})
+    interior_images = project.interior_images.all()
+    architecture_images = project.architecture_images.all()
+    building_images = project.building_images.all()
+    exterior_images = project.exterior_images.all()
+    all_images = list(interior_images) + list(architecture_images) + list(building_images) + list(exterior_images)
+
+    return render(request, 'project_detail.html', {
+        'project': project,
+        'all_images': all_images,
+        'interior_images': interior_images,
+        'architecture_images': architecture_images,
+        'building_images': building_images,
+        'exterior_images': exterior_images
+        
+    })
+
+
 
 
 def about(request):
@@ -174,10 +191,67 @@ def dynamic_view(request, path):
     return render(request, 'dynamic_template.html', {'dynamic_url': dynamic_url})
 
 
+
+
+# def package(request):
+#     packages = Package.objects.all()
+#     form = PackageDownloadForm()
+
+#     if request.method == 'POST':
+#         form = PackageDownloadForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             # Add any success logic here (e.g., redirect to a thank you page)
+#             return redirect('packagedownload')  # Replace with your actual URL
+
+#     context = {
+#         'packages': packages,
+#         'form': form,  # Pass the form to the template context
+#     }
+#     return render(request, 'package.html', context)
+
+
 def package(request):
-    packages = Package.objects.all()  # Changed variable name to 'packages'
+    packages = Package.objects.all()
+
     context = {
-        'packages': packages,  # Changed variable name to 'packages'
+        'packages': packages,
     }
     return render(request, 'package.html', context)
 
+
+
+from django.http import FileResponse, Http404
+from django.shortcuts import get_object_or_404, render
+from .models import Package
+from .forms import PackageDownloadForm
+
+def packagedownload(request, slug):
+    packages = get_object_or_404(Package, slug=slug)
+    form = PackageDownloadForm()
+
+    if request.method == 'POST':
+        form = PackageDownloadForm(request.POST)
+        if form.is_valid():
+            form.save()
+            try:
+                file_path = packages.package_documents.path
+                response = FileResponse(open(file_path, 'rb'), as_attachment=True, filename=packages.package_documents.name)
+                return response
+            except FileNotFoundError:
+                raise Http404("File does not exist")
+
+    context = {
+        'packages': packages,
+        'form': form,
+    }
+    return render(request, 'package_download.html', context)
+
+
+from django.shortcuts import render
+
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
+
+def termsconditions(request):
+    return render(request, 'terms_and_conditions.html')

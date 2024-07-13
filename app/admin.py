@@ -12,30 +12,28 @@ class ContactMessageAdmin(admin.ModelAdmin):
 
 
 
-# Register your models here.
-
 from django.contrib import admin
-from .models import ProjectPage, ProjectImage
+from .models import ProjectPage, InteriorImage, ArchitectureImage, BuildingImage, ExteriorImage
 
-class ProjectImageInline(admin.TabularInline):
-    model = ProjectImage
+class InteriorImageInline(admin.TabularInline):
+    model = InteriorImage
+    extra = 1
+
+class ArchitectureImageInline(admin.TabularInline):
+    model = ArchitectureImage
+    extra = 1
+
+class BuildingImageInline(admin.TabularInline):
+    model = BuildingImage
+    extra = 1
+
+class ExteriorImageInline(admin.TabularInline):
+    model = ExteriorImage
     extra = 1
 
 @admin.register(ProjectPage)
 class ProjectPageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'category','client_name','completion','project_type','manager','slug']  # Adjusted list_display
-    list_filter = ['category']  # Adjusted list_filter
-    search_fields = ['title', 'description']
-    inlines = [ProjectImageInline]
-
-@admin.register(ProjectImage)
-class ProjectPageImageAdmin(admin.ModelAdmin):
-    def image_tag(self, obj):
-        return obj.image.url if obj.image else None
-    image_tag.short_description = 'Image'  # Custom image_tag method
-    list_display = ['project', 'image_tag']
-    readonly_fields = ['image_tag']
-    search_fields = ['project__title']
+    inlines = [InteriorImageInline, ArchitectureImageInline, BuildingImageInline, ExteriorImageInline]
 
 
 
@@ -112,3 +110,11 @@ class PackageAdmin(admin.ModelAdmin):
 class PackageSummaryAdmin(admin.ModelAdmin):
     list_display = ('package', 'summary')
     search_fields = ('package__name', 'summary')
+
+
+class PackageDownloadAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'phone', 'looking_for', 'timestamp')
+    list_filter = ('looking_for', 'timestamp')
+    search_fields = ('name', 'email', 'phone', 'looking_for')
+
+admin.site.register(PackageDownload, PackageDownloadAdmin)

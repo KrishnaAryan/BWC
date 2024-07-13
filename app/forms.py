@@ -21,3 +21,9 @@ class DynamicURLData(forms.Form):
 	class meta:
 		model = DynamicURL
 		fields = '__all__'
+            
+
+class PackageDownloadForm(forms.ModelForm):
+    class Meta:
+        model = PackageDownload
+        fields = ['name', 'email', 'phone', 'looking_for', 'message']

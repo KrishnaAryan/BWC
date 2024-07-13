@@ -18,34 +18,45 @@ class ContactMessage(models.Model):
 
 
 
-from django.db import models
-
 class ProjectPage(models.Model):
-    CATEGORY_CHOICES = [
-        ('interior', 'Interior'),
-        ('architecture', 'Architecture'),
-        ('building', 'Building'),
-        ('exterior', 'Exterior'),
-    ]
-    
     title = models.CharField(max_length=200)
     description = models.TextField()
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
-    client_name = models.CharField(max_length=100, null=True, blank=True)
-    completion = models.CharField(max_length=100, null=True, blank=True)
-    project_type = models.CharField(max_length=100, null=True, blank=True)
-    manager = models.CharField(max_length=100, null=True, blank=True)
-    slug = models.SlugField(unique=True, max_length=200, null=True, blank=True)
+    client_name = models.CharField(max_length=100)
+    completion = models.CharField(max_length=100)
+    project_type = models.CharField(max_length=100)
+    manager = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, max_length=200)
 
     def __str__(self):
         return self.title
 
-class ProjectImage(models.Model):
-    project = models.ForeignKey(ProjectPage, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='projects/')
+class InteriorImage(models.Model):
+    project = models.ForeignKey(ProjectPage, related_name='interior_images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='projects/interior')
 
     def __str__(self):
-        return f"Image for {self.project.title}"
+        return f"Interior Image for {self.project.title}"
+
+class ArchitectureImage(models.Model):
+    project = models.ForeignKey(ProjectPage, related_name='architecture_images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='projects/architecture')
+
+    def __str__(self):
+        return f"Architecture Image for {self.project.title}"
+
+class BuildingImage(models.Model):
+    project = models.ForeignKey(ProjectPage, related_name='building_images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='projects/building')
+
+    def __str__(self):
+        return f"Building Image for {self.project.title}"
+
+class ExteriorImage(models.Model):
+    project = models.ForeignKey(ProjectPage, related_name='exterior_images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='projects/exterior')
+
+    def __str__(self):
+        return f"Exterior Image for {self.project.title}"
 
 
 
@@ -59,7 +70,7 @@ class BlogPost(models.Model):
     date = models.DateTimeField()
     author = models.CharField(max_length=100)
     click_count = models.IntegerField(default=0)
-    slug = models.SlugField(unique=True, max_length=200, null=True, blank=True)
+    slug = models.SlugField(unique=True, max_length=200)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -153,3 +164,24 @@ class PackageSummary(models.Model):
     class Meta:
         verbose_name = "Package Summary"
         verbose_name_plural = "Package Summaries"
+
+
+class PackageDownload(models.Model):
+    LOOKING_FOR_CHOICES = [
+        ('immediate', 'Immediate'),
+        ('exploring', 'Just exploring'),
+        ('1_month', 'After 1 month'),
+        ('3_months', 'After 3 months'),
+        ('6_months', 'After 6 months'),
+    ]
+
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    looking_for = models.CharField(max_length=20, choices=LOOKING_FOR_CHOICES)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
