@@ -15,8 +15,10 @@ from datetime import timedelta
 
 def index(request):
     projects = ProjectPage.objects.all()
+    popup_image = PopupImage.objects.first()
     context = {
         'projects': projects,
+        'popup_image':popup_image
     }
     return render(request, 'index.html',context)
 
@@ -255,3 +257,17 @@ def privacy_policy(request):
 
 def termsconditions(request):
     return render(request, 'terms_and_conditions.html')
+
+
+def banner(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        message = request.POST.get('message')
+        try:
+            ContactMessage.objects.create(name=name, email=email, phone=phone, message=message)
+            return redirect('success')  # Ensure you have a 'success' URL pattern and view
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    return render(request, 'banner.html')

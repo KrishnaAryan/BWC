@@ -4,7 +4,7 @@
 
 {% block main %}
 <div class="container">
-    <h1 class="article__heading heading heading--size-large">{{ packages.name }} Package</h1>
+    <h1 class="article__heading heading heading--size-large">{{ packages.name }} </h1>
 </div>
 </header><br><br><br><br>
 <style>
@@ -108,7 +108,7 @@
             <h2>{{ packages.name }}</h2>
             <p>Price: <s>₹ {{ packages.price }}</s> / Sqft</p>
             <p>Offer Price: ₹ {{ packages.offer_price }} / Sqft</p> <br><br><br>
-            <ul></p> <br><br><br>
+            <ul></p> 
                 {% for summary in packages.package_summaries.all %}
                     <li style="color:black; text-align:left;">{{ summary.summary }}</li>
                 {% endfor %}

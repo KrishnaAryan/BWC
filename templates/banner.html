@@ -220,12 +220,11 @@
         </ul>
       </div>
     </div>
-   {% block main %}
-   {% endblock main %}
+   
    <div class="article__main container">
     <section class="article__feedback feedback">
-      <h2 class="feedback__heading heading" data-aos="fade">Do you have any question
-        <span class="color-yellow">?</span>
+      <h2 class="feedback__heading heading" data-aos="fade">Fill out the form for further information.
+        {% comment %} <span class="color-yellow">?</span> {% endcomment %}
       </h2>
       <form class="js-form" action="{% url 'contact' %}" method="POST">
         {% csrf_token %}

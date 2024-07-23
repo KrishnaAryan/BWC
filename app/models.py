@@ -18,6 +18,9 @@ class ContactMessage(models.Model):
 
 
 
+from django.db import models
+from django.urls import reverse
+
 class ProjectPage(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -26,34 +29,41 @@ class ProjectPage(models.Model):
     project_type = models.CharField(max_length=100)
     manager = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)  # Automatically set the field to now when the object is first created
+    updated_at = models.DateTimeField(auto_now=True,blank=True,null=True)  # Automatically set the field to now every time the object is saved
 
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('project_detail', args=[self.slug])
+
+
+    
 class InteriorImage(models.Model):
     project = models.ForeignKey(ProjectPage, related_name='interior_images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='projects/interior')
+    image = models.ImageField(upload_to='projects/interior',null=True, blank=True)
 
     def __str__(self):
         return f"Interior Image for {self.project.title}"
 
 class ArchitectureImage(models.Model):
     project = models.ForeignKey(ProjectPage, related_name='architecture_images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='projects/architecture')
+    image = models.ImageField(upload_to='projects/architecture',null=True, blank=True)
 
     def __str__(self):
         return f"Architecture Image for {self.project.title}"
 
 class BuildingImage(models.Model):
     project = models.ForeignKey(ProjectPage, related_name='building_images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='projects/building')
+    image = models.ImageField(upload_to='projects/building',null=True, blank=True)
 
     def __str__(self):
         return f"Building Image for {self.project.title}"
 
 class ExteriorImage(models.Model):
     project = models.ForeignKey(ProjectPage, related_name='exterior_images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='projects/exterior')
+    image = models.ImageField(upload_to='projects/exterior',null=True, blank=True)
 
     def __str__(self):
         return f"Exterior Image for {self.project.title}"
@@ -153,6 +163,9 @@ class Package(models.Model):
     class Meta:
         verbose_name = "Package"
         verbose_name_plural = "Packages"
+        
+    def get_absolute_url(self):
+        return reverse('packagedownload', args=[self.slug])  
 
 class PackageSummary(models.Model):
     package = models.ForeignKey(Package, on_delete=models.CASCADE, related_name='package_summaries')
@@ -185,3 +198,12 @@ class PackageDownload(models.Model):
     def __str__(self):
         return self.name
 
+
+
+
+class PopupImage(models.Model):
+    image = models.ImageField(upload_to='popup_images/')
+    caption = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return self.caption if self.caption else 'Popup Image'

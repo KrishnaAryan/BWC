@@ -106,10 +106,10 @@ class PackageAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'offer_price', 'slug')
     search_fields = ('name', 'slug')
 
-@admin.register(PackageSummary)
-class PackageSummaryAdmin(admin.ModelAdmin):
-    list_display = ('package', 'summary')
-    search_fields = ('package__name', 'summary')
+# @admin.register(PackageSummary)
+# class PackageSummaryAdmin(admin.ModelAdmin):
+#     list_display = ('package', 'summary')
+#     search_fields = ('package__name', 'summary')
 
 
 class PackageDownloadAdmin(admin.ModelAdmin):
@@ -118,3 +118,10 @@ class PackageDownloadAdmin(admin.ModelAdmin):
     search_fields = ('name', 'email', 'phone', 'looking_for')
 
 admin.site.register(PackageDownload, PackageDownloadAdmin)
+
+
+@admin.register(PopupImage)
+class PopupImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'caption', 'image')
+    search_fields = ('caption',)
+    list_filter = ('caption',)
