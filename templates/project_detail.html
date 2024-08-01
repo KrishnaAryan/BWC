@@ -74,17 +74,17 @@
             <div class="project-meta__item-text">{{ project.client_name }}</div>
           </li>
           <li class="project-meta__item">
-            <div class="project-meta__item-title">Completion</div>
+            <div class="project-meta__item-title">Completed</div>
             <div class="project-meta__item-text">{{ project.completion }}</div>
           </li>
           <li class="project-meta__item">
             <div class="project-meta__item-title">Project type</div>
             <div class="project-meta__item-text">{{ project.project_type }}</div>
           </li>
-          <li class="project-meta__item">
+          {% comment %} <li class="project-meta__item">
             <div class="project-meta__item-title">Manager</div>
             <div class="project-meta__item-text">{{ project.manager }}</div>
-          </li>
+          </li> {% endcomment %}
         </ul>
         <div class="article__project-designer project-designer row">
           <div class="project-designer__content col-12 col-md-6 col-lg-8">

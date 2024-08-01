@@ -24,8 +24,8 @@ SECRET_KEY = 'django-insecure-#o8zh+*qgy69293ey&s28oc8g^svr+x56wq5mu92dnunr^*5rf
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ['https://*buildwrightconstructions.com','https://*.13.60.105.13']
 # settings.py
 SITE_ID = 1
 
