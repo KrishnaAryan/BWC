@@ -125,11 +125,11 @@
             <p>Price: <s>₹ {{ package_item.price }}</s> / Sqft</p>
             <p>Offer Price: ₹ {{ package_item.offer_price }} / Sqft</p>
             
-            <ul>
+            {% comment %} <ul>
                 {% for summary in package_item.package_summaries.all %}
                     <li style="color:black; text-align:left;">{{ summary.summary }}</li>
                 {% endfor %}
-            </ul>
+            </ul> {% endcomment %}
             
         </div>
         <!-- Notice the correction here: package_item.slug without quotes -->
