@@ -31,8 +31,10 @@
     
     {% endblock %}
 </title>
-  <meta name="description" content="{% block meta_description %}{% endblock %}">
-    <meta name="keywords" content="">
+
+<meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+<meta name="description" content="{% block meta_description %}{% endblock %}">
+
 
 </head>
 
@@ -153,27 +155,27 @@
             
           </li>
           <li class="navigation__item">
-            <a class="navigation__link animsition-link" href="service">Services</a>
+            <a class="navigation__link animsition-link" href="/service">Services</a>
             
           </li>
           <li class="navigation__item">
-            <a class="navigation__link animsition-link" href="package">Package</a>
+            <a class="navigation__link animsition-link" href="/package">Package</a>
             
           </li>
           <li class="navigation__item">
-            <a class="navigation__link animsition-link" href="project-list">project</a>
+            <a class="navigation__link animsition-link" href="/project-list">Project</a>
             
           </li>
           <li class="navigation__item">
-            <a class="navigation__link animsition-link" href="blogs">Blog</a>
+            <a class="navigation__link animsition-link" href="/blogs">Blog</a>
           </li>
           <li class="navigation__item">
-            <a class="navigation__link animsition-link" href="about">About</a>
+            <a class="navigation__link animsition-link" href="/about">About</a>
           </li>
           
          
           <li class="navigation__item">
-            <a class="navigation__link animsition-link" href="contact">Contact</a>
+            <a class="navigation__link animsition-link" href="/contact">Contact</a>
           </li>
         </ul>
       </nav>
@@ -186,7 +188,7 @@
         <!-- Social-->
         <ul class="mobile-canvas__social social">
           <li class="social__item">
-            <a class="social__link" href="#" target="_blank">
+            <a class="social__link" href="https://www.facebook.com/buildwrightconstructions" target="_blank">
               <svg width="20" height="20" aria-label="facebook icon">
                 <use xlink:href="#facebook"></use>
               </svg>
@@ -210,11 +212,11 @@
             </a>
           </li> {% endcomment %}
           <li class="social__item">
-            <a class="social__link" href="#" target="_blank">
-              <svg width="20" height="20" aria-label="linkedin-original icon">
-                <use xlink:href="#linkedin-original"></use>
+            <a class="social__link" href="https://www.instagram.com/buildwright_constructions/" target="_blank">
+              <svg width="20" height="20" aria-label="instagram icon">
+                <use xlink:href="#instagram"></use>
               </svg>
-              <span class="visually-hidden">linkedin-original</span>
+              <span class="visually-hidden">instagram</span>
             </a>
           </li>
         </ul>
@@ -243,11 +245,28 @@
                 <div class="field-error" style="display: none"></div>
             </div>
             <div class="feedback__field-wrapper col-12 col-lg-4" data-aos="fade">
-                <label class="field" aria-label="Phone">
-                    <input type="text" name="phone" placeholder="Phone" required>
-                </label>
-                <div class="field-error" style="display: none"></div>
-            </div>
+              <label class="field" aria-label="Phone">
+                  <input type="text" name="phone" placeholder="Phone" required
+                         pattern="\d{10}" maxlength="10" minlength="10" title="Phone number must be exactly 10 digits">
+              </label>
+              <div class="field-error" style="display: none"></div>
+          </div>
+          <script>
+            document.querySelector('input[name="phone"]').addEventListener('input', function() {
+              var phoneInput = this;
+              var fieldError = phoneInput.parentElement.nextElementSibling;
+          
+              if (!/^\d{10}$/.test(phoneInput.value)) {
+                  phoneInput.setCustomValidity("Phone number must be exactly 10 digits.");
+                  fieldError.style.display = 'block';
+                  fieldError.textContent = "Phone number must be exactly 10 digits.";
+              } else {
+                  phoneInput.setCustomValidity("");
+                  fieldError.style.display = 'none';
+              }
+          });
+          
+          </script>
             <div class="feedback__field-wrapper col-12" data-aos="fade">
                 <label class="field" aria-label="Message">
                     <textarea name="message" placeholder="Message*" required></textarea>
@@ -281,16 +300,16 @@
           <div class="footer__column col-6 col-sm">
             <ul class="footer__column-menu">
               <li class="footer__column-item">
-                <a class="footer__column-link animsition-link" href="sitemap.xml">Site Map</a>
+                <a class="footer__column-link animsition-link" href="/sitemap.xml">Site Map</a>
               </li>
               <li class="footer__column-item">
-                <a class="footer__column-link animsition-link" href="terms-and-conditions">Terms &amp; Conditions</a>
+                <a class="footer__column-link animsition-link" href="/terms-and-conditions">Terms &amp; Conditions</a>
               </li>
               <li class="footer__column-item">
-                <a class="footer__column-link animsition-link" href="privacy-policy">Privacy Policy</a>
+                <a class="footer__column-link animsition-link" href="/privacy-policy">Privacy Policy</a>
               </li>
               <li class="footer__column-item">
-                <a class="footer__column-link animsition-link" href="#">Help</a>
+                <a class="footer__column-link animsition-link" href="contact">Help</a>
               </li>
               {% comment %} <li class="footer__column-item">
                 <a class="footer__column-link animsition-link" href="#">Affiliatep</a>
@@ -301,16 +320,16 @@
           <div class="footer__column col-6 col-sm">
             <ul class="footer__column-menu">
               <li class="footer__column-item">
-                <a class="footer__column-link animsition-link" href="#">Our Location</a>
+                <a class="footer__column-link animsition-link" href="/contact">Our Location</a>
               </li>
               <li class="footer__column-item">
-                <a class="footer__column-link animsition-link" href="job_list">Career</a>
+                <a class="footer__column-link animsition-link" href="/job_list">Career</a>
               </li>
               <li class="footer__column-item">
-                <a class="footer__column-link animsition-link" href="about">About</a>
+                <a class="footer__column-link animsition-link" href="/about">About</a>
               </li>
               <li class="footer__column-item">
-                <a class="footer__column-link animsition-link" href="contact">Contact</a>
+                <a class="footer__column-link animsition-link" href="/contact">Contact</a>
               </li>
             </ul>
           </div>
@@ -321,7 +340,7 @@
             <!-- Social-->
             <ul class="footer__social social">
               <li class="social__item">
-                <a class="social__link" href="#" target="_blank">
+                <a class="social__link" href="https://www.facebook.com/buildwrightconstructions" target="_blank">
                   <svg width="20" height="20" aria-label="facebook icon">
                     <use xlink:href="#facebook"></use>
                   </svg>
@@ -329,13 +348,14 @@
                 </a>
               </li>
               <li class="social__item">
-                <a class="social__link" href="#" target="_blank">
-                  <svg width="20" height="20" aria-label="twitter icon">
-                    <use xlink:href="#twitter"></use>
+                <a class="social__link" href="https://www.instagram.com/buildwright_constructions/" target="_blank">
+                  <svg width="20" height="20" aria-label="instagram icon">
+                    <use xlink:href="#instagram"></use>
                   </svg>
-                  <span class="visually-hidden">twitter</span>
+                  <span class="visually-hidden">instagram</span>
                 </a>
               </li>
+              
               {% comment %} <li class="social__item">
                 <a class="social__link" href="#" target="_blank">
                   <svg width="20" height="20" aria-label="google-plus icon">
@@ -344,14 +364,14 @@
                   <span class="visually-hidden">google-plus</span>
                 </a>
               </li> {% endcomment %}
-              <li class="social__item">
+              {% comment %} <li class="social__item">
                 <a class="social__link" href="#" target="_blank">
                   <svg width="20" height="20" aria-label="linkedin-original icon">
                     <use xlink:href="#linkedin-original"></use>
                   </svg>
                   <span class="visually-hidden">linkedin-original</span>
                 </a>
-              </li>
+              </li> {% endcomment %}
             </ul>
           </div>
         </div>

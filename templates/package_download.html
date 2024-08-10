@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% block title %}Buildwright Constructions - Quality Home Construction{% endblock %}
+
+{% block meta_keywords %}home construction, building design, residential construction, Buildwright Constructions, quality homes{% endblock %}
+{% block meta_description %}Welcome to Buildwright Constructions. We specialize in quality home construction, delivering exceptional residential projects with innovative designs and superior craftsmanship.{% endblock %}
 
 {% block main %}
 <div class="container">
@@ -92,6 +96,7 @@
     max-height: 80%;
     overflow: auto;
     text-align: center;
+    position: relative;
 }
 
 .close-btn {
@@ -99,6 +104,8 @@
     top: 10px;
     right: 10px;
     cursor: pointer;
+    font-size: 24px;
+    color: #333;
 }
 </style>
 
@@ -108,7 +115,7 @@
             <h2>{{ packages.name }}</h2>
             <p>Price: <s>₹ {{ packages.price }}</s> / Sqft</p>
             <p>Offer Price: ₹ {{ packages.offer_price }} / Sqft</p> <br><br><br>
-            <ul></p> 
+            <ul>
                 {% for summary in packages.package_summaries.all %}
                     <li style="color:black; text-align:left;">{{ summary.summary }}</li>
                 {% endfor %}

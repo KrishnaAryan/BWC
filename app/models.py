@@ -2,13 +2,20 @@ from django.db import models
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
 from django.urls import reverse
-
-
+from django.core.validators import RegexValidator  # Correct import
 
 class ContactMessage(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
-    phone = models.CharField(max_length=20)
+    phone = models.CharField(
+        max_length=10,
+        validators=[
+            RegexValidator(
+                regex=r'^\d{10}$',
+                message='Phone number must be exactly 10 digits.',
+            )
+        ]
+    )
     message = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -190,7 +197,15 @@ class PackageDownload(models.Model):
 
     name = models.CharField(max_length=100)
     email = models.EmailField()
-    phone = models.CharField(max_length=20)
+    phone = models.CharField(
+        max_length=10,
+        validators=[
+            RegexValidator(
+                regex=r'^\d{10}$',
+                message='Phone number must be exactly 10 digits.',
+            )
+        ]
+    )
     looking_for = models.CharField(max_length=20, choices=LOOKING_FOR_CHOICES)
     message = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
