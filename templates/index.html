@@ -371,10 +371,14 @@
               <li class="projects-masonry__item col-12 col-md-6 col-xl-4 __js_masonry-item exterior">
                   <a class="card card--small card--masonry" href="{% url 'project_detail' project.slug %}">
                       <div class="card__image">
-                          {% if project.exterior_images.first %}
-                              <img src="{{ project.exterior_images.first.image.url }}" alt="{{ project.title }}">
-                          {% endif %}
-                      </div>
+                        {% with project.exterior_images.first as ext_img %}
+                        {% if ext_img and ext_img.image %}
+                            <img src="{{ ext_img.image.url }}" alt="{{ project.title }}">
+                        {% else %}
+                            <img src="{% static 'images/placeholder.jpg' %}" alt="Placeholder">
+                        {% endif %}
+                    {% endwith %}
+                    
                       <div class="card__content">
                           <h3 class="card__heading">{{ project.title|linebreaksbr }}</h3>
                           <div class="card__text">{{ project.description|truncatewords:30 }}</div>
