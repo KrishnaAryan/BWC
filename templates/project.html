@@ -28,8 +28,6 @@
                         <div class="card__image">
                             {% if project.interior_images.first %}
                                 <img src="{{ project.interior_images.first.image.url }}" alt="{{ project.title }}">
-                            {% else %}
-                                <img src="default.jpg" alt="No Image Available">
                             {% endif %}
                         </div>
                         <div class="card__content">
@@ -50,8 +48,6 @@
                         <div class="card__image">
                             {% if project.architecture_images.first %}
                                 <img src="{{ project.architecture_images.first.image.url }}" alt="{{ project.title }}">
-                            {% else %}
-                                <img src="default.jpg" alt="No Image Available">
                             {% endif %}
                         </div>
                         <div class="card__content">
@@ -72,8 +68,6 @@
                         <div class="card__image">
                             {% if project.building_images.first %}
                                 <img src="{{ project.building_images.first.image.url }}" alt="{{ project.title }}">
-                            {% else %}
-                                <img src="default.jpg" alt="No Image Available">
                             {% endif %}
                         </div>
                         <div class="card__content">
@@ -94,8 +88,6 @@
                         <div class="card__image">
                             {% if project.exterior_images.first %}
                                 <img src="{{ project.exterior_images.first.image.url }}" alt="{{ project.title }}">
-                            {% else %}
-                                <img src="default.jpg" alt="No Image Available">
                             {% endif %}
                         </div>
                         <div class="card__content">
@@ -114,6 +106,7 @@
                 {% endfor %}
             </ul>
         </div>
+        
     </article>
 </main>
 <scriptss>

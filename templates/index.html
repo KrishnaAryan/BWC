@@ -306,102 +306,95 @@
             </div>
         </header>
         <div class="article__main container">
-            <ul class="projects-masonry row __js_projects-grid">
-                {% for project in projects %}
-                <li class="projects-masonry__item col-12 col-md-6 col-xl-4 __js_masonry-item interior">
-                    <a class="card card--small card--masonry" href="{% url 'project_detail' project.slug %}">
-                        <div class="card__image">
-                            {% if project.interior_images.first %}
-                                <img src="{{ project.interior_images.first.image.url }}" alt="{{ project.title }}">
-                            {% else %}
-                                <img src="default.jpg" alt="No Image Available">
-                            {% endif %}
-                        </div>
-                        <div class="card__content">
-                            <h3 class="card__heading">{{ project.title|linebreaksbr }}</h3>
-                            <div class="card__text">{{ project.description|truncatewords:30 }}</div>
-                            <div class="card__bottom">
-                                <span class="card__link">See project
-                                    <svg width="20" height="20">
-                                        <use xlink:href="#chevron-right"></use>
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="projects-masonry__item col-12 col-md-6 col-xl-4 __js_masonry-item architecture">
-                    <a class="card card--small card--masonry" href="{% url 'project_detail' project.slug %}">
-                        <div class="card__image">
-                            {% if project.architecture_images.first %}
-                                <img src="{{ project.architecture_images.first.image.url }}" alt="{{ project.title }}">
-                            {% else %}
-                                <img src="default.jpg" alt="No Image Available">
-                            {% endif %}
-                        </div>
-                        <div class="card__content">
-                            <h3 class="card__heading">{{ project.title|linebreaksbr }}</h3>
-                            <div class="card__text">{{ project.description|truncatewords:30 }}</div>
-                            <div class="card__bottom">
-                                <span class="card__link">See project
-                                    <svg width="20" height="20">
-                                        <use xlink:href="#chevron-right"></use>
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="projects-masonry__item col-12 col-md-6 col-xl-4 __js_masonry-item building">
-                    <a class="card card--small card--masonry" href="{% url 'project_detail' project.slug %}">
-                        <div class="card__image">
-                            {% if project.building_images.first %}
-                                <img src="{{ project.building_images.first.image.url }}" alt="{{ project.title }}">
-                            {% else %}
-                                <img src="default.jpg" alt="No Image Available">
-                            {% endif %}
-                        </div>
-                        <div class="card__content">
-                            <h3 class="card__heading">{{ project.title|linebreaksbr }}</h3>
-                            <div class="card__text">{{ project.description|truncatewords:30 }}</div>
-                            <div class="card__bottom">
-                                <span class="card__link">See project
-                                    <svg width="20" height="20">
-                                        <use xlink:href="#chevron-right"></use>
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="projects-masonry__item col-12 col-md-6 col-xl-4 __js_masonry-item exterior">
-                    <a class="card card--small card--masonry" href="{% url 'project_detail' project.slug %}">
-                        <div class="card__image">
-                            {% if project.exterior_images.first %}
-                                <img src="{{ project.exterior_images.first.image.url }}" alt="{{ project.title }}">
-                            {% else %}
-                                <img src="default.jpg" alt="No Image Available">
-                            {% endif %}
-                        </div>
-                        <div class="card__content">
-                            <h3 class="card__heading">{{ project.title|linebreaksbr }}</h3>
-                            <div class="card__text">{{ project.description|truncatewords:30 }}</div>
-                            <div class="card__bottom">
-                                <span class="card__link">See project
-                                    <svg width="20" height="20">
-                                        <use xlink:href="#chevron-right"></use>
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
+          <ul class="projects-masonry row __js_projects-grid">
+              {% for project in projects %}
+              <li class="projects-masonry__item col-12 col-md-6 col-xl-4 __js_masonry-item interior">
+                  <a class="card card--small card--masonry" href="{% url 'project_detail' project.slug %}">
+                      <div class="card__image">
+                          {% if project.interior_images.first %}
+                              <img src="{{ project.interior_images.first.image.url }}" alt="{{ project.title }}">
+                          {% endif %}
+                      </div>
+                      <div class="card__content">
+                          <h3 class="card__heading">{{ project.title|linebreaksbr }}</h3>
+                          <div class="card__text">{{ project.description|truncatewords:30 }}</div>
+                          <div class="card__bottom">
+                              <span class="card__link">See project
+                                  <svg width="20" height="20">
+                                      <use xlink:href="#chevron-right"></use>
+                                  </svg>
+                              </span>
+                          </div>
+                      </div>
+                  </a>
+              </li>
+              <li class="projects-masonry__item col-12 col-md-6 col-xl-4 __js_masonry-item architecture">
+                  <a class="card card--small card--masonry" href="{% url 'project_detail' project.slug %}">
+                      <div class="card__image">
+                          {% if project.architecture_images.first %}
+                              <img src="{{ project.architecture_images.first.image.url }}" alt="{{ project.title }}">
+                          {% endif %}
+                      </div>
+                      <div class="card__content">
+                          <h3 class="card__heading">{{ project.title|linebreaksbr }}</h3>
+                          <div class="card__text">{{ project.description|truncatewords:30 }}</div>
+                          <div class="card__bottom">
+                              <span class="card__link">See project
+                                  <svg width="20" height="20">
+                                      <use xlink:href="#chevron-right"></use>
+                                  </svg>
+                              </span>
+                          </div>
+                      </div>
+                  </a>
+              </li>
+              <li class="projects-masonry__item col-12 col-md-6 col-xl-4 __js_masonry-item building">
+                  <a class="card card--small card--masonry" href="{% url 'project_detail' project.slug %}">
+                      <div class="card__image">
+                          {% if project.building_images.first %}
+                              <img src="{{ project.building_images.first.image.url }}" alt="{{ project.title }}">
+                          {% endif %}
+                      </div>
+                      <div class="card__content">
+                          <h3 class="card__heading">{{ project.title|linebreaksbr }}</h3>
+                          <div class="card__text">{{ project.description|truncatewords:30 }}</div>
+                          <div class="card__bottom">
+                              <span class="card__link">See project
+                                  <svg width="20" height="20">
+                                      <use xlink:href="#chevron-right"></use>
+                                  </svg>
+                              </span>
+                          </div>
+                      </div>
+                  </a>
+              </li>
+              <li class="projects-masonry__item col-12 col-md-6 col-xl-4 __js_masonry-item exterior">
+                  <a class="card card--small card--masonry" href="{% url 'project_detail' project.slug %}">
+                      <div class="card__image">
+                          {% if project.exterior_images.first %}
+                              <img src="{{ project.exterior_images.first.image.url }}" alt="{{ project.title }}">
+                          {% endif %}
+                      </div>
+                      <div class="card__content">
+                          <h3 class="card__heading">{{ project.title|linebreaksbr }}</h3>
+                          <div class="card__text">{{ project.description|truncatewords:30 }}</div>
+                          <div class="card__bottom">
+                              <span class="card__link">See project
+                                  <svg width="20" height="20">
+                                      <use xlink:href="#chevron-right"></use>
+                                  </svg>
+                              </span>
+                          </div>
+                      </div>
+                  </a>
+              </li>
+              {% endfor %}
+          </ul>
+      </div>
+      
     </article>
 </main>
-<scriptss>
+
   <script>
     document.addEventListener("DOMContentLoaded", function() {
         const filterButtons = document.querySelectorAll('.__js_filter-btn');
